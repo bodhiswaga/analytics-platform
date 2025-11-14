@@ -6,15 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class MonthlyDirect extends Model
+class DirectCampaignMonthly extends Model
 {
     use HasFactory;
 
-    protected $table = 'direct_totals_monthly';
+    protected $table = 'direct_campaign_monthly';
 
     protected $fillable = [
         'project_id',
-        'year', 
+        'direct_campaign_id',
+        'year',
         'month',
         'impressions',
         'clicks',
@@ -41,6 +42,11 @@ class MonthlyDirect extends Model
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function campaign(): BelongsTo
+    {
+        return $this->belongsTo(Campaign::class, 'direct_campaign_id');
     }
 
     // Scopes
